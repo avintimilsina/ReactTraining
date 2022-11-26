@@ -82,11 +82,11 @@ function WeatherData(props) {
       <>
         <div className='city-name'>
           <h2>
-            {data?.name}, <span>Nepal</span>
+            {data?.name}, <span>{data.sys.country}</span>
           </h2>
         </div>
         <div className='date'>
-          <span>November 12 2022</span>
+          <span>{new Date().toISOString()}</span>
         </div>
 
         <div className='icon-temp'>
@@ -95,7 +95,7 @@ function WeatherData(props) {
             src={`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`}
             alt=''
           />
-          {data ? Math.round(data.main.temp-273) : ""}
+          {data ? Math.round(data.main.temp - 273) : ""}
           <sup className='deg'>&deg;C</sup>
         </div>
         <div className='des-wind'>
