@@ -12,7 +12,7 @@ export async function fetch() {
     return {
       ...post,
       created_at: moment(post.created_at).format("MM Do YY"),
-    }
+    };
   });
 }
 
