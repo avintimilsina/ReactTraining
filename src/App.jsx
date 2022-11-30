@@ -1,39 +1,39 @@
-import Weather from "./components/Weather";
-import { Outlet, Link, Routes, Route } from "react-router-dom";
-export default function App() {
-  return (
-    <div>
-      <nav>
-        <ul>
-          <li>
-            <Link to='/'>Home</Link>
-          </li>
-          <li>
-            <Link to='/weather'>Weather</Link>
-          </li>
-        </ul>
-      </nav>
-      <Routes>
-        <Route path='/' element={<Home />}>
-          <Route path='/posts' element={<Post />} />
-          <Route path='/weather' element={<Weather />} />
-        </Route>
-        <Route path='/weather' element={<Weather />} />
-      </Routes>
-    </div>
-  );
-}
-function Home() {
-  return (
-    <>
-      <div>Header</div>
-      <div>Sidebar</div>
-      <Outlet />
-      <div>Footer</div>
-    </>
-  );
-}
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Root from "./routes/Root";
+import About from "./routes/About";
+import Post, { postLoader } from "./routes/Post";
+import Home, { fetch } from "./routes/Home";
+import NewPost, { submitPost } from "./routes/NewPost";
+import "./App.css";
 
-function Post() {
-  return <div>My posts</div>;
+export default function App() {
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Root />,
+      children: [
+        {
+          path: "/",
+          element: <Home />,
+          loader: fetch,
+        },
+        {
+          path: "/about",
+          element: <About />,
+        },
+        {
+          path: "/new",
+          element: <NewPost />,
+          action: submitPost,
+          loader: fetch,
+        },
+        {
+          path: "/post/:id",
+          element: <Post />,
+          loader: postLoader,
+        },
+      ],
+    },
+  ]);
+  return <RouterProvider router={router} />;
 }
