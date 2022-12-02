@@ -10,7 +10,7 @@ export default function App() {
   return (
     <>
       <Header />
-      <Search />
+      <Search setEmoji={setFilteredEmojis} />
       <EmojiList data={filteredEmojis} />
     </>
   );

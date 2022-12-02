@@ -1,8 +1,15 @@
-export default function Search() {
+import filterEmoji from "../filterEmoji";
+
+export default function Search(props) {
+  function handleChange(e) {
+    const value = e.target.value;
+    const filterEmojis = filterEmoji(value, 20);
+    props.setEmoji(filterEmojis);
+  }
   return (
     <div className='component-search-input'>
       <div>
-        <input />
+        <input onChange={handleChange} />
       </div>
     </div>
   );
